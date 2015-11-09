@@ -1,0 +1,72 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" fx:id="root">
+    <VBox alignment="TOP_CENTER" styleClass="bg-pattern">
+        <BorderPane id="background" prefWidth="800.0" prefHeight="600.0">
+            <top>
+                <MenuBar>
+                    <menus>
+                        <Menu text="File">
+                            <items>
+                                <MenuItem text="New connection" onAction="#showMainScreen"/>
+                                <MenuItem text="Exit" onAction="#closeApplication"/>
+                            </items>
+                        </Menu>
+                        <Menu text="View">
+                            <items>
+                                <MenuItem text="Show redis server info" onAction="#showServerInfo"/>
+                                <MenuItem text="Show redis cluster info" onAction="#showClusterInfo"/>
+                                <MenuItem text="Show redis clients info" onAction="#showClientInfo"/>
+                                <MenuItem text="Show redis stats info" onAction="#showStatsInfo"/>
+                            </items>
+                        </Menu>
+                        <Menu text="Help">
+                            <items>
+                                <MenuItem text="About" onAction="#showAboutDialog"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+
+            <center>
+                <SplitPane fx:id="splitView">
+                    <VBox alignment="TOP_LEFT">
+                        <padding>
+                            <Insets top="10" left="0" bottom="0" right="0"/>
+                        </padding>
+
+                        <GridPane hgap="10" alignment="TOP_LEFT">
+                            <padding>
+                                <Insets top="0" left="10" bottom="5" right="0"/>
+                            </padding>
+                            <Label text="Redis keys" fx:id="leftPanelTitle" styleClass="title-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="LEFT"
+                                   GridPane.hgrow="ALWAYS"/>
+
+                            <Button text="Refresh" onAction="#refreshKeys" alignment="BASELINE_RIGHT"
+                                    GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER"
+                                    GridPane.hgrow="ALWAYS"/>
+                        </GridPane>
+
+                        <ListView fx:id="redisKeysTree" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+
+                    <VBox alignment="TOP_LEFT">
+                        <padding>
+                            <Insets top="10" left="10" bottom="0" right="10"/>
+                        </padding>
+
+                        <TextField editable="false" fx:id="redisKey" styleClass="redis-key"/>
+                        <TextArea fx:id="keyValue" styleClass="redis-value"/>
+
+                        <Label text="Redis server info" fx:id="centerPanelTitle" styleClass="server-info-label"/>
+                        <TextArea editable="false" fx:id="redisServerInfo" prefRowCount="5" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+
+                </SplitPane>
+            </center>
+        </BorderPane>
+    </VBox>
+</fx:root>
